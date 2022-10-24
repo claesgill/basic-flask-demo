@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Importing Bootstrap library -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <title>Flask Demo</title>
+</head>
+<body>
+    <script>
+        // Basic function that uses vanilla JS 'fetch' to get data from
+        // the Flask '/get_data' endpoint.
+        function fetchData() {
+            fetch('/get_data').then((response) => {
+                return response.json();
+            }).then((myData) => {
+                // Looping over data and popuplates the unordered list item
+                // with li-elements in the html.
+                let listElement = document.getElementById("list");
+                for (const item of myData.data) {
+                    let li = document.createElement("li");
+                    li.textContent = `Item: #${item}`;
+                    listElement.appendChild(li);
+                }
+            });
+        }
+    </script>
+    
+    <!-- The username will be renderer here by Flask. -->
+    <h1>Hello {{ user }}!</h1>
+    
+    <!-- A button styled with some Bootstrap classes, that fetch or dummy data. -->
+    <button type="button" class="btn btn-primary" onclick="fetchData()">Fetch dummy data</button>
+    
+    <!-- Just a empty unorderer list that get populated with items after we press the button. -->
+    <ul id="list"></ul>
+</body>
+</html>
